@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"io"
+
+	// "log"
 	"os"
 )
 
@@ -12,13 +14,16 @@ func main() {
 
 	file, err := os.Open(fileName) // For read access.
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
-	data, err := os.ReadFile(file.Name())
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf(string(data))
+	// data, err := os.ReadFile(file.Name())
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Printf(string(data))
+
+	io.Copy(os.Stdout, file)
 
 	file.Close()
 
